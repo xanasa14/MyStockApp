@@ -13,6 +13,16 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
  import TextTicker from 'react-native-text-ticker';
 import CryptoScreen from "./screens/CryptoScreen";
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+const screenWidth = Dimensions.get("window").width;
 
 
  const stockPrices ={
@@ -28,8 +38,42 @@ import CryptoScreen from "./screens/CryptoScreen";
   tslaURL: "https://query1.finance.yahoo.com/v11/finance/quoteSummary/tsla?modules=financialData",
 }
 
+
+  //
+
+
  function App (){
-  
+  const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2 // optional
+      }
+    ],
+    legend: ["Rainy Days"] // optional
+  };
+  const commitsData = [
+    { date: "2017-01-02", count: 1 },
+    { date: "2017-01-03", count: 2 },
+    { date: "2017-01-04", count: 3 },
+    { date: "2017-01-05", count: 4 },
+    { date: "2017-01-06", count: 5 },
+    { date: "2017-01-30", count: 2 },
+    { date: "2017-01-31", count: 3 },
+    { date: "2017-03-01", count: 2 },
+    { date: "2017-04-02", count: 4 },
+    { date: "2017-03-05", count: 2 },
+    { date: "2017-02-30", count: 4 }
+  ];
+  const chartConfig = {
+    backgroundGradientFrom: "#13703d",
+    backgroundGradientToOpacity: 0.8,
+    color: (opacity = 1) => `rgba(26, 255, 80, ${opacity})`,
+    strokeWidth: 3, // optional, default 3
+    barPercentage: 0.5,
+  };
    // managing state with 'useState'
    const [isLoading, setLoading] = useState(true);
    const [btcData, setbtcData] = useState();
@@ -296,13 +340,38 @@ import CryptoScreen from "./screens/CryptoScreen";
          <Text>Compound: $ {compData}</Text>
          <Text>Doge: $ {dogeData}</Text>
          <Text>Lite Coin: $ {ltcData}</Text>
-
          <Text>APPL: ${applData}</Text>
          <Text>TSLA: ${tslaData}</Text>
-
-
          </View>
        )}
+
+        <View style={{alignItems:'center'}}>
+        <Text > Last hours:</Text>
+        <ContributionGraph
+        style={{alignItems:'flex-start', marginRight:125,paddingRight:125}}
+          values={commitsData}
+          startDate={new Date("2017-02-23")}
+          endDate={new Date("2017-02-26")}
+          numDays={14}
+          width={260}
+          height={63}
+          chartConfig={chartConfig}
+          horizontal={false}
+          showOutOfRangeDays={false}
+          data
+          squareSize={30}
+        />
+
+        </View>
+        <View>
+        <Text>Line Chart</Text>
+          <LineChart
+            data={data}
+            width={screenWidth}
+            height={220}
+            chartConfig={chartConfig}
+          />
+        </View>
      </SafeAreaView>
      
 
