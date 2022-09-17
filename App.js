@@ -345,24 +345,7 @@ const screenWidth = Dimensions.get("window").width;
          </View>
        )}
 
-        <View style={{alignItems:'center'}}>
-        <Text > Last hours:</Text>
-        <ContributionGraph
-        style={{alignItems:'flex-start', marginRight:125,paddingRight:125}}
-          values={commitsData}
-          startDate={new Date("2017-02-23")}
-          endDate={new Date("2017-02-26")}
-          numDays={14}
-          width={260}
-          height={63}
-          chartConfig={chartConfig}
-          horizontal={false}
-          showOutOfRangeDays={false}
-          data
-          squareSize={30}
-        />
-
-        </View>
+     
         <View>
         <Text>Line Chart</Text>
           <LineChart
