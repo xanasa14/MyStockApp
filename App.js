@@ -6,8 +6,6 @@
    View,
    SafeAreaView,
    ActivityIndicator,
-   FlatList,
-   Alert, ScrollView,
  } from "react-native";
  import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,6 +20,8 @@ import {
   StackedBarChart
 } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
+import StockBanner from "./components/StockBanner";
+import Prices from "./components/Prices"
 const screenWidth = Dimensions.get("window").width;
 
 
@@ -291,7 +291,7 @@ const screenWidth = Dimensions.get("window").width;
   }
 
   //TSLA
-  async function getAPPLAsync() {
+  async function getTSLAsync() {
     try {
       let response = await fetch(stockPrices.tslaURL);
       let json = await response.json();
@@ -308,43 +308,19 @@ const screenWidth = Dimensions.get("window").width;
 
 
      <SafeAreaView style={styles.container}>
-     <View style={styles.tickerBar}>
-        <TextTicker
-          style={{ fontSize: 24, color:'yellow'}}
-          bounceSpeed={1}
-          duration={13000}
-          loop
-          bounce
-          repeatSpacer={8}
-          marqueeDelay={1500}
-        >
-         BTC ${btcData} || ETH ${ethData}|| ETC ${etcData}||
-         SOL: ${solData} || SHIB ${shibData} || COMP ${compData}||
-         DOGE ${dogeData}|| LTC ${ltcData}||
-        </TextTicker>    
-        </View>  
+      <View style={styles.tickerBar}>
+        <StockBanner />
+
+      </View>  
        {/* While fetching show the indicator, else show response*/}
        {isLoading ? (
          <ActivityIndicator />
        ) : (
          <View style={styles.container}>
-           {/* Title from URL */}
-           {/* Display each movie */}
-           
-           {/* Show the stock prices */}
-         <Text>Bitcoin: $ {btcData}</Text>
-         <Text>Ethereum: ${ethData}</Text>
-         <Text>Ethereum Classic: ${etcData}</Text>
-         <Text>Solana: ${solData}</Text>
-         <Text>Shibu: $ {shibData}</Text>
-         <Text>Compound: $ {compData}</Text>
-         <Text>Doge: $ {dogeData}</Text>
-         <Text>Lite Coin: $ {ltcData}</Text>
-         <Text>APPL: ${applData}</Text>
-         <Text>TSLA: ${tslaData}</Text>
+         <Prices />
+ 
          </View>
        )}
-
      
         <View>
         <Text>Line Chart</Text>
