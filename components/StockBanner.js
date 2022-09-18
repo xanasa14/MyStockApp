@@ -228,7 +228,7 @@ useEffect(() => {
          SOL: ${solData} || SHIB ${shibData} || COMP ${compData}||
          DOGE ${dogeData}|| LTC ${ltcData}||
         </TextTicker>    
-        </View>  
+      </View>  
 
     );
  }
